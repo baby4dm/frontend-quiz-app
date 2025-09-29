@@ -28,15 +28,25 @@
   <body>
     <main class="main-container">
       <div class="start-page">
-        <div class="theme-container">
-          <div class="sun-container">
-            <img src="./images/icon-sun-dark.svg" alt="sun" />
+        <div class="header">
+          <div class="topic-title-container">
+            <div class="topic-img-container html">
+              <img class="topic-img" src="./images/icon-html.svg" alt="html" />
+            </div>
+
+            <p class="topic-name">HTML</p>
           </div>
-          <label for="switch">
-            <input type="checkbox" id="theme-toggle" />
-          </label>
-          <div class="moon-container">
-            <img src="./images/icon-moon-dark.svg" alt="moon" />
+          <div class="theme-container">
+            <div class="sun-container">
+              <img src="./images/icon-sun-dark.svg" alt="sun" />
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="theme-toggle" />
+              <span class="slider"></span>
+            </label>
+            <div class="moon-container">
+              <img src="./images/icon-moon-dark.svg" alt="moon" />
+            </div>
           </div>
         </div>
 
@@ -47,19 +57,36 @@
           <p class="subtitle">Pick a subject to get started.</p>
           <div class="topic-container">
             <button class="html-button">
-              <img src="./images/icon-html.svg" alt="html" />
+              <div class="topic-img-container html">
+                <img
+                  class="topic-img"
+                  src="./images/icon-html.svg"
+                  alt="html"
+                />
+              </div>
+
               HTML
             </button>
             <button class="css-button">
-              <img src="./images/icon-css.svg" alt="css" />
+              <div class="topic-img-container css">
+                <img class="topic-img" src="./images/icon-css.svg" alt="css" />
+              </div>
               CSS
             </button>
             <button class="js-button">
-              <img src="./images/icon-js.svg" alt="js" />
+              <div class="topic-img-container js">
+                <img class="topic-img" src="./images/icon-js.svg" alt="js" />
+              </div>
               Javascript
             </button>
             <button class="access-button">
-              <img src="./images/icon-accessibility.svg" alt="accessibility" />
+              <div class="topic-img-container access">
+                <img
+                  class="topic-img"
+                  src="./images/icon-accessibility.svg"
+                  alt="accessibility"
+                />
+              </div>
               Accessibility
             </button>
           </div>
