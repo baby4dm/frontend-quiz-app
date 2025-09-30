@@ -17,6 +17,9 @@
   --orange-400: #ff7e35;
   --orange-50: #fff5ed;
   --red-500: #ee5454;
+  --background-img-mobile: url("./images/pattern-background-mobile-light.svg");
+  --background-img-tablet: url("./images/pattern-background-tablet-light.svg");
+  --background-img-desktop: url("./images/pattern-background-desktop-light.svg");
 }
 
 * {
@@ -26,11 +29,14 @@
 }
 
 body {
+  height: 100%;
+  min-height: 100vh;
   background-color: var(--grey-50);
-  background-image: url("./images/pattern-background-mobile-light.svg");
+  background-image: var(--background-img-mobile);
   background-size: cover;
   color: var(--blue-900);
   font-family: "Rubik", sans-serif;
+  background-repeat: no-repeat;
 }
 .main-container {
   padding-inline: 24px;
@@ -170,4 +176,91 @@ input:checked + .slider::before {
   font-weight: 600;
   color: var(--blue-900);
   align-items: center;
+}
+@media (min-width: 768px) {
+  body {
+    background-image: var(--background-img-tablet);
+    background-size: 75% 75%;
+  }
+  .main-container {
+    padding-inline: 64px;
+    margin-bottom: 32px;
+  }
+  .header {
+    margin-block: 48px;
+  }
+  .topic-title-container {
+    gap: 24px;
+  }
+  .topic-img-container {
+    width: 56px;
+    height: 56px;
+  }
+  .topic-img {
+    width: 40px;
+    height: 40px;
+  }
+  .topic-name {
+    font-size: 28px;
+  }
+  .theme-container {
+    gap: 16px;
+  }
+  .sun-container,
+  .moon-container {
+    height: 24px;
+    width: 24px;
+  }
+  .switch {
+    width: 48px;
+    height: 28px;
+  }
+  .slider::before {
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 4px;
+  }
+  input:checked + .slider::before {
+    transform: translateX(20px);
+  }
+  .title {
+    font-size: 64px;
+  }
+  .subtitle {
+    font-size: 20px;
+  }
+  .topic-container {
+    margin-top: 64px;
+    gap: 24px;
+  }
+  .topic-container button {
+    font-size: 28px;
+    height: 88px;
+    border-radius: 24px;
+  }
+}
+@media (min-width: 1440px) {
+  body {
+    background-image: var(--background-img-desktop);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  .header {
+    margin-block: 64px;
+  }
+  .main-container {
+    padding-inline: 142px;
+  }
+  .main-content {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 128px;
+  }
+  .topic-container {
+    min-width: 564px;
+    margin: 0;
+  }
 }
