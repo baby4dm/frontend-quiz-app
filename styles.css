@@ -17,9 +17,16 @@
   --orange-400: #ff7e35;
   --orange-50: #fff5ed;
   --red-500: #ee5454;
-  --background-img-mobile: url("./images/pattern-background-mobile-light.svg");
-  --background-img-tablet: url("./images/pattern-background-tablet-light.svg");
-  --background-img-desktop: url("./images/pattern-background-desktop-light.svg");
+  --background-img-mobile-light: url("./images/pattern-background-mobile-light.svg");
+  --background-img-tablet-light: url("./images/pattern-background-tablet-light.svg");
+  --background-img-desktop-light: url("./images/pattern-background-desktop-light.svg");
+  --background-img-mobile-dark: url("./images/pattern-background-mobile-dark.svg");
+  --background-img-tablet-dark: url("./images/pattern-background-tablet-dark.svg");
+  --background-img-desktop-dark: url("./images/pattern-background-desktop-dark.svg");
+  --sun-image-dark: url("./images/icon-sun-dark.svg");
+  --sun-image-light: url("./images/icon-sun-light.svg");
+  --moon-image-light: url("./images/icon-moon-light.svg ");
+  --moon-image-dark: url("./images/icon-moon-dark.svg");
 }
 
 * {
@@ -32,11 +39,15 @@ body {
   height: 100%;
   min-height: 100vh;
   background-color: var(--grey-50);
-  background-image: var(--background-img-mobile);
+  background-image: var(--background-img-mobile-light);
   background-size: cover;
   color: var(--blue-900);
   font-family: "Rubik", sans-serif;
   background-repeat: no-repeat;
+}
+body.dark-theme {
+  background-color: var(--blue-900);
+  background-image: var(--background-img-mobile-dark);
 }
 .main-container {
   padding-inline: 24px;
@@ -71,7 +82,7 @@ body {
 .topic-img-container {
   height: 40px;
   width: 40px;
-  border-radius: 6px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -83,6 +94,9 @@ body {
 .topic-name {
   font-size: 18px;
   font-weight: 500;
+}
+body.dark-theme .topic-name {
+  color: var(--white);
 }
 .theme-container {
   display: flex;
@@ -132,20 +146,33 @@ input:checked + .slider::before {
 }
 .sun-container,
 .moon-container {
-  height: 16px;
-  width: 16px;
+  height: 18px;
+  width: 18px;
+  background-size: 100%;
 }
-.sun-container img,
-.moon-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+
+.sun-container {
+  background-image: var(--sun-image-dark);
 }
+.moon-container {
+  background-image: var(--moon-image-dark);
+}
+body.dark-theme .sun-container {
+  background-image: var(--sun-image-light);
+}
+body.dark-theme .moon-container{
+  background-image: var(--moon-image-light);
+}
+
 .title {
   font-size: 40px;
   font-weight: 300;
   margin-bottom: 16px;
 }
+body.dark-theme .title {
+  color: var(--white);
+}
+
 .bold {
   font-weight: 500;
 }
@@ -155,6 +182,9 @@ input:checked + .slider::before {
   font-style: italic;
   color: var(--grey-500);
   font-weight: 400;
+}
+body.dark-theme .subtitle{
+  color: var(--blue-300);
 }
 .topic-container {
   margin-top: 40px;
@@ -177,10 +207,17 @@ input:checked + .slider::before {
   color: var(--blue-900);
   align-items: center;
 }
+body.dark-theme .topic-container button {
+  background-color: var(--blue-850);
+  color: var(--white);
+}
 @media (min-width: 768px) {
   body {
-    background-image: var(--background-img-tablet);
+    background-image: var(--background-img-tablet-light);
     background-size: 75% 75%;
+  }
+  body.dark-theme {
+    background-image: var(--background-img-tablet-dark);
   }
   .main-container {
     padding-inline: 64px;
@@ -208,8 +245,8 @@ input:checked + .slider::before {
   }
   .sun-container,
   .moon-container {
-    height: 24px;
-    width: 24px;
+    height: 26px;
+    width: 26px;
   }
   .switch {
     width: 48px;
@@ -242,10 +279,13 @@ input:checked + .slider::before {
 }
 @media (min-width: 1440px) {
   body {
-    background-image: var(--background-img-desktop);
+    background-image: var(--background-img-desktop-light);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+  }
+  body.dark-theme {
+    background-image: var(--background-img-desktop-dark);
   }
   .header {
     margin-block: 64px;
@@ -262,5 +302,8 @@ input:checked + .slider::before {
   .topic-container {
     min-width: 564px;
     margin: 0;
+  }
+  .topic-container button {
+    padding: 24px;
   }
 }
