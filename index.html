@@ -28,25 +28,23 @@
   </head>
   <body class="">
     <main class="main-container">
-      <div class="start-page">
-        <div class="header">
-          <div class="topic-title-container">
-            <div class="topic-img-container html">
-              <img class="topic-img" src="./images/icon-html.svg" alt="html" />
-            </div>
-
-            <p class="topic-name">HTML</p>
+      <div class="header">
+        <div class="topic-title-container hidden">
+          <div class="topic-img-container html">
+            <img class="topic-img" src="./images/icon-html.svg" alt="html" />
           </div>
-          <div class="theme-container">
-            <div class="sun-container"></div>
-            <label class="switch">
-              <input type="checkbox" id="theme-toggle" />
-              <span class="slider"></span>
-            </label>
-            <div class="moon-container"></div>
-          </div>
+          <p class="topic-name">HTML</p>
         </div>
-
+        <div class="theme-container">
+          <div class="sun-container"></div>
+          <label class="switch">
+            <input type="checkbox" id="theme-toggle" />
+            <span class="slider"></span>
+          </label>
+          <div class="moon-container"></div>
+        </div>
+      </div>
+      <div class="start-page">
         <div class="main-content">
           <div class="text-content">
             <h1 class="title">
@@ -54,7 +52,7 @@
             </h1>
             <p class="subtitle">Pick a subject to get started.</p>
           </div>
-          <div class="topic-container">
+          <div class="buttons-container">
             <button class="html-button">
               <div class="topic-img-container html">
                 <img
@@ -75,7 +73,7 @@
               <div class="topic-img-container js">
                 <img class="topic-img" src="./images/icon-js.svg" alt="js" />
               </div>
-              Javascript
+              JavaScript
             </button>
             <button class="access-button">
               <div class="topic-img-container access">
@@ -88,6 +86,45 @@
               Accessibility
             </button>
           </div>
+        </div>
+      </div>
+
+      <div class="quiz-page hidden">
+        <div class="main-content">
+          <div class="text-content">
+            <p class="subtitle question-number"></p>
+            <h1 class="title question">
+              <span class="bold"></span>
+            </h1>
+
+            <div class="progress-container">
+              <div class="progress-bar" id="progress-bar"></div>
+            </div>
+          </div>
+
+          <div class="buttons-container">
+            <button class="answer a">
+              <div class="question-option">A</div>
+              <p class="option"></p>
+              <div class="answer-result-img"></div>
+            </button>
+            <button class="answer b">
+              <div class="question-option">B</div>
+              <p class="option"></p>
+              <div class="answer-result-img"></div>
+            </button>
+            <button class="answer c">
+              <div class="question-option">C</div>
+              <p class="option"></p>
+              <div class="answer-result-img"></div>
+            </button>
+            <button class="answer d">
+              <div class="question-option">D</div>
+              <p class="option"></p>
+              <div class="answer-result-img"></div>
+            </button>
+          </div>
+          <button class="submit-button">Sumbit Answer</button>
         </div>
       </div>
     </main>
