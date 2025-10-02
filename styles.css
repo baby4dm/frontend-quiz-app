@@ -89,6 +89,7 @@ body.dark-theme {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-shrink: 0;
   font-weight: 700;
 }
 .question-option {
@@ -230,17 +231,16 @@ body.dark-theme .buttons-container button {
 }
 
 .answer-result-img {
+  flex-shrink: 0;
   margin-left: auto;
   background-size: cover;
   width: 32px;
   height: 32px;
 }
 
-.correct-answer {
-  border: 3px solid var(--green-500);
-}
-.incorrect-answer {
-  border: 3px solid var(--red-500);
+.answer.disabled {
+  pointer-events: none;
+  opacity: 0.8;
 }
 .progress-container {
   width: 100%;
@@ -256,7 +256,7 @@ body.dark-theme .buttons-container button {
   height: 100%;
   border-radius: 999px;
 }
-.submit-button {
+.submit-button, .next-button {
   height: 56px;
   background-color: var(--purple-600);
   width: 100%;
@@ -271,6 +271,12 @@ body.dark-theme .buttons-container button {
 
 .buttons-container button.selected {
   border: 3px solid var(--purple-600);
+}
+.buttons-container button.correct-answer {
+  border: 3px solid var(--green-500);
+}
+.buttons-container button.incorrect-answer {
+  border: 3px solid var(--red-500);
 }
 .hidden {
   display: none;
@@ -351,7 +357,7 @@ body.dark-theme .buttons-container button {
     width: 40px;
     height: 40px;
   }
-  .submit-button {
+  .submit-button, .next-button {
     height: 92px;
     border-radius: 24px;
     font-size: 28px;
@@ -399,7 +405,7 @@ body.dark-theme .buttons-container button {
     padding: 24px;
     height: 104px;
   }
-  .submit-button {
+  .submit-button, .next-button {
     grid-column: 2;
     grid-row: 2;
     margin: 0;

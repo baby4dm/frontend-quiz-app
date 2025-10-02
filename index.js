@@ -7,16 +7,19 @@ const startPage = document.querySelector(".start-page");
 const quizPage = document.querySelector(".quiz-page");
 const questionNumberElem = quizPage.querySelector(".question-number");
 const questionTitleElem = quizPage.querySelector(".question");
+const questionOption = quizPage.querySelector(".question-option");
 const answerButtonsContainer = quizPage.querySelector(".buttons-container");
 const answerButtons = quizPage.querySelectorAll(".answer");
 const submitButton = quizPage.querySelector(".submit-button");
-
+const nextButton = quizPage.querySelector(".next-button");
+const progressBar = document.getElementById("progress-bar");
 // ------------------------------
 // Змінні стану
 // ------------------------------
 let quizzes = [];
 let currentQuiz = null;
 let currentQuestionIndex = 0;
+let score = 0;
 
 // ------------------------------
 // Тема (Dark/Light) + LocalStorage
@@ -85,7 +88,8 @@ function showQuestion() {
     currentQuiz.questions.length
   }`;
   questionTitleElem.querySelector(".bold").textContent = questionData.question;
-
+  console.log(currentQuestionIndex);
+  progressBar.style.width = (currentQuestionIndex + 1) * 10 + "%";
   // Оновлюємо кнопки з варіантами
   answerButtons.forEach((btn, i) => {
     const optionText = questionData.options[i];
@@ -132,20 +136,54 @@ submitButton.addEventListener("click", () => {
     selectedButton.classList.add("correct-answer");
     selectedButton.querySelector(".answer-result-img").style.backgroundImage =
       "var(--icon-correct)";
+    selectedButton.querySelector(".question-option").style.backgroundColor =
+      "var(--green-500)";
+    score++;
   } else {
     // Якщо неправильна відповідь
     selectedButton.classList.add("incorrect-answer");
     selectedButton.querySelector(".answer-result-img").style.backgroundImage =
       "var(--icon-incorrect)";
+    selectedButton.querySelector(".question-option").style.backgroundColor =
+      "var(--red-500)";
 
     // Знаходимо правильну кнопку і додаємо тільки іконку + зелений бордер
     answerButtons.forEach((btn) => {
       const optionText = btn.querySelector(".option").textContent.trim();
       if (optionText === correctAnswer) {
-        btn.classList.add("correct-answer");
         btn.querySelector(".answer-result-img").style.backgroundImage =
           "var(--icon-correct)";
       }
     });
+  }
+
+  // Після відповіді блокуємо всі кнопки
+  answerButtons.forEach((btn) => {
+    btn.classList.add("disabled");
+  });
+  // але залишаємо вибраний варіант без "disabled"
+  selectedButton.classList.remove("disabled");
+  submitButton.classList.add("hidden");
+  nextButton.classList.remove("hidden");
+});
+
+nextButton.addEventListener("click", () => {
+  currentQuestionIndex++;
+
+  if (currentQuestionIndex < currentQuiz.questions.length) {
+    // є ще питання → показуємо наступне
+    showQuestion();
+
+    // скидаємо стан кнопок
+    answerButtons.forEach((btn) => {
+      btn.classList.remove("disabled", "correct-answer", "incorrect-answer");
+      btn.querySelector(".answer-result-img").style.backgroundImage = "";
+    });
+
+    // кнопки назад: Submit видима, Next схована
+    submitButton.classList.remove("hidden");
+    nextButton.classList.add("hidden");
+  } else {
+    
   }
 });
