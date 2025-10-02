@@ -256,7 +256,9 @@ body.dark-theme .buttons-container button {
   height: 100%;
   border-radius: 999px;
 }
-.submit-button, .next-button {
+.submit-button,
+.next-button,
+.again-button {
   height: 56px;
   background-color: var(--purple-600);
   width: 100%;
@@ -277,6 +279,28 @@ body.dark-theme .buttons-container button {
 }
 .buttons-container button.incorrect-answer {
   border: 3px solid var(--red-500);
+}
+.result-container {
+  height: 242px;
+  width: 100%;
+  background-color: var(--white);
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.score {
+  margin-block: 16px;
+  font-size: 88px;
+  line-height: 100%;
+  font-weight: 500;
+}
+.max-score {
+  margin-top: auto;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--grey-500);
 }
 .hidden {
   display: none;
@@ -357,11 +381,25 @@ body.dark-theme .buttons-container button {
     width: 40px;
     height: 40px;
   }
-  .submit-button, .next-button {
+  .submit-button,
+  .next-button,
+  .again-button {
     height: 92px;
     border-radius: 24px;
     font-size: 28px;
     margin-top: 32px;
+  }
+  .result-container {
+    height: 388px;
+    padding: 48px;
+  }
+  .score {
+    font-size: 144px;
+    margin-block: 40px 16px;
+  }
+  .max-score {
+    font-size: 24px;
+    line-height: 150%;
   }
 }
 @media (min-width: 1440px) {
@@ -380,11 +418,17 @@ body.dark-theme .buttons-container button {
   .main-container {
     padding-inline: 142px;
   }
-  .main-content {
+  .main-content { 
     display: grid;
     grid-template-columns: minmax(465px, 1fr) minmax(564px, 1fr);
     grid-template-rows: minmax(464px, 1fr) 92px;
     gap: 32px 128px;
+  }
+  .result-page .main-content {
+    display: grid;
+    grid-template-columns: minmax(450px, 1fr) minmax(564px, 1fr);
+    grid-template-rows: minmax(388px, 1fr) 92px;
+    gap: 32px 144px;
   }
   .text-content {
     margin: 0;
@@ -405,7 +449,9 @@ body.dark-theme .buttons-container button {
     padding: 24px;
     height: 104px;
   }
-  .submit-button, .next-button {
+  .submit-button,
+  .next-button,
+  .again-button {
     grid-column: 2;
     grid-row: 2;
     margin: 0;

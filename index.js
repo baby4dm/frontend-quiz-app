@@ -13,6 +13,10 @@ const answerButtons = quizPage.querySelectorAll(".answer");
 const submitButton = quizPage.querySelector(".submit-button");
 const nextButton = quizPage.querySelector(".next-button");
 const progressBar = document.getElementById("progress-bar");
+const resultPage = document.querySelector(".result-page");
+const scoreElement = resultPage.querySelector(".score");
+const maxScoreElement = resultPage.querySelector(".max-score");
+const playAgainButton = resultPage.querySelector(".again-button");
 // ------------------------------
 // Змінні стану
 // ------------------------------
@@ -184,6 +188,47 @@ nextButton.addEventListener("click", () => {
     submitButton.classList.remove("hidden");
     nextButton.classList.add("hidden");
   } else {
-    
+    quizPage.classList.add("hidden");
+    resultPage.classList.remove("hidden");
+    scoreElement.textContent = score;
+    maxScoreElement.textContent =
+      maxScoreElement.textContent + " " + currentQuestionIndex;
   }
 });
+
+playAgainButton.addEventListener("click", () => {
+  // Скидаємо стан
+  score = 0;
+  currentQuestionIndex = 0;
+  currentQuiz = null;
+
+  // Ховаємо resultPage і показуємо startPage
+  resultPage.classList.add("hidden");
+  startPage.classList.remove("hidden");
+
+  // Скидаємо текст у score / maxScore
+  scoreElement.textContent = "";
+  maxScoreElement.textContent = "out of";
+
+  // Скидаємо прогрес бар
+  progressBar.style.width = "0%";
+
+  // повністю чистимо кнопки відповідей
+  answerButtons.forEach((btn) => {
+    btn.classList.remove(
+      "disabled",
+      "correct-answer",
+      "incorrect-answer",
+      "selected"
+    );
+    btn.querySelector(".answer-result-img").style.backgroundImage = "";
+    const option = btn.querySelector(".question-option");
+    option.style.backgroundColor = "";
+    option.style.color = "";
+  });
+
+  // Submit видима, Next схована (на випадок якщо залишились старі класи)
+  submitButton.classList.remove("hidden");
+  nextButton.classList.add("hidden");
+});
+

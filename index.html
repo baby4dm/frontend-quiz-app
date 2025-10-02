@@ -29,7 +29,7 @@
   <body class="">
     <main class="main-container">
       <div class="header">
-        <div class="topic-title-container hidden">
+        <div class="topic-title-container">
           <div class="topic-img-container html">
             <img class="topic-img" src="./images/icon-html.svg" alt="html" />
           </div>
@@ -126,6 +126,31 @@
           </div>
           <button class="submit-button">Sumbit Answer</button>
           <button class="next-button hidden">Next Question</button>
+        </div>
+      </div>
+
+      <div class="result-page hidden">
+        <div class="main-content">
+          <div class="text-content">
+            <h1 class="title result">
+              Quiz completed <span class="bold">You scored...</span>
+            </h1>
+          </div>
+          <div class="result-container">
+            <div class="topic-title-container">
+              <div class="topic-img-container html">
+                <img
+                  class="topic-img"
+                  src="./images/icon-html.svg"
+                  alt="html"
+                />
+              </div>
+              <p class="topic-name">HTML</p>
+            </div>
+            <div class="score"></div>
+            <div class="max-score">out of</div>
+          </div>
+           <button class="again-button">Play Again</button>
         </div>
       </div>
     </main>
