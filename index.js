@@ -1,5 +1,5 @@
 // ------------------------------
-// Селектори DOM
+// DOM SELECTORS
 // ------------------------------
 const toggle = document.getElementById("theme-toggle");
 const body = document.body;
@@ -20,8 +20,9 @@ const playAgainButton = resultPage.querySelector(".again-button");
 const topicContainers = document.querySelectorAll(".topic-title-container");
 const headerTopics = document.querySelectorAll(".header-topic-img-container");
 const topicNameElements = document.querySelectorAll(".topic-name");
+const errorContainer = quizPage.querySelector(".error-container");
 // ------------------------------
-// Змінні стану
+// State variables
 // ------------------------------
 let quizzes = [];
 let currentQuiz = null;
@@ -29,7 +30,7 @@ let currentQuestionIndex = 0;
 let score = 0;
 
 // ------------------------------
-// Тема (Dark/Light) + LocalStorage
+// Theme switching
 // ------------------------------
 const savedTheme = localStorage.getItem("theme");
 if (savedTheme) {
@@ -45,7 +46,7 @@ toggle.addEventListener("change", () => {
 });
 
 // ------------------------------
-// Завантаження JSON з запитаннями
+// Questions fetching
 // ------------------------------
 fetch("./data.json")
   .then((res) => res.json())
@@ -56,10 +57,12 @@ fetch("./data.json")
   .catch((err) => console.error("Помилка завантаження JSON:", err));
 
 // ------------------------------
-// Функції
+// Functions
 // ------------------------------
 
-// Ініціалізація стартової сторінки (вибір теми)
+// ------------------------------------------------------------
+// Start page initialization, choosing topic and switch to it
+// ------------------------------------------------------------
 function initStartPage() {
   document
     .querySelectorAll(".start-page .buttons-container button")
@@ -101,7 +104,23 @@ function initStartPage() {
     });
 }
 
-// Скидання стилів кнопок відповідей
+// ------------------------------
+// Add selected state for button
+// ------------------------------
+answerButtonsContainer.addEventListener("click", (e) => {
+  const btn = e.target.closest("button");
+  if (!btn) return;
+  resetAnswerButtons();
+
+  btn.classList.add("selected");
+  const option = btn.querySelector(".question-option");
+  option.style.backgroundColor = "var(--purple-600)";
+  option.style.color = "var(--white)";
+});
+
+// -----------------------------------
+// Remove selected state from button
+// -----------------------------------
 function resetAnswerButtons() {
   answerButtons.forEach((btn) => {
     btn.classList.remove("selected");
@@ -111,59 +130,51 @@ function resetAnswerButtons() {
   });
 }
 
+// ---------------------------------------------
+// Function responses for showing question page
+// ---------------------------------------------
 function showQuestion() {
   const questionData = currentQuiz.questions[currentQuestionIndex];
 
-  // Оновлюємо номер питання та текст
   questionNumberElem.textContent = `Question ${currentQuestionIndex + 1} of ${
     currentQuiz.questions.length
   }`;
   questionTitleElem.querySelector(".bold").textContent = questionData.question;
   console.log(currentQuestionIndex);
   progressBar.style.width = (currentQuestionIndex + 1) * 10 + "%";
-  // Оновлюємо кнопки з варіантами
+
   answerButtons.forEach((btn, i) => {
     const optionText = questionData.options[i];
     const optionP = btn.querySelector(".option");
 
-    optionP.textContent = optionText; // заповнюємо текст
+    optionP.textContent = optionText;
     btn.classList.remove("selected");
     const letterDiv = btn.querySelector(".question-option");
     letterDiv.style.backgroundColor = "";
     letterDiv.style.color = "";
   });
 }
-
-// Обробка вибору відповіді
-answerButtonsContainer.addEventListener("click", (e) => {
-  const btn = e.target.closest("button");
-  if (!btn) return;
-
-  resetAnswerButtons();
-
-  btn.classList.add("selected");
-  const option = btn.querySelector(".question-option");
-  option.style.backgroundColor = "var(--purple-600)";
-  option.style.color = "var(--white)";
-});
-
+// ---------------------------------------------
+// Check user answer and show proper info
+// ---------------------------------------------
 submitButton.addEventListener("click", () => {
   const selectedButton = quizPage.querySelector(".answer.selected");
-  if (!selectedButton) return; // якщо нічого не вибрано
-
+  if (!selectedButton) {
+    errorContainer.classList.remove("hidden");
+    return;
+  }
+  errorContainer.classList.add("hidden");
   const selectedText = selectedButton
     .querySelector(".option")
     .textContent.trim();
   const correctAnswer = currentQuiz.questions[currentQuestionIndex].answer;
 
-  // Скидаємо попередні стани
   answerButtons.forEach((btn) => {
     btn.classList.remove("correct-answer", "incorrect-answer");
     btn.querySelector(".answer-result-img").style.backgroundImage = "";
   });
 
   if (selectedText === correctAnswer) {
-    // Якщо правильна відповідь
     selectedButton.classList.add("correct-answer");
     selectedButton.querySelector(".answer-result-img").style.backgroundImage =
       "var(--icon-correct)";
@@ -171,14 +182,12 @@ submitButton.addEventListener("click", () => {
       "var(--green-500)";
     score++;
   } else {
-    // Якщо неправильна відповідь
     selectedButton.classList.add("incorrect-answer");
     selectedButton.querySelector(".answer-result-img").style.backgroundImage =
       "var(--icon-incorrect)";
     selectedButton.querySelector(".question-option").style.backgroundColor =
       "var(--red-500)";
 
-    // Знаходимо правильну кнопку і додаємо тільки іконку + зелений бордер
     answerButtons.forEach((btn) => {
       const optionText = btn.querySelector(".option").textContent.trim();
       if (optionText === correctAnswer) {
@@ -188,30 +197,28 @@ submitButton.addEventListener("click", () => {
     });
   }
 
-  // Після відповіді блокуємо всі кнопки
   answerButtons.forEach((btn) => {
     btn.classList.add("disabled");
   });
-  // але залишаємо вибраний варіант без "disabled"
   selectedButton.classList.remove("disabled");
   submitButton.classList.add("hidden");
   nextButton.classList.remove("hidden");
 });
 
+// --------------------------------------------
+// Next button logic - step into next question
+// --------------------------------------------
 nextButton.addEventListener("click", () => {
   currentQuestionIndex++;
 
   if (currentQuestionIndex < currentQuiz.questions.length) {
-    // є ще питання → показуємо наступне
     showQuestion();
 
-    // скидаємо стан кнопок
     answerButtons.forEach((btn) => {
       btn.classList.remove("disabled", "correct-answer", "incorrect-answer");
       btn.querySelector(".answer-result-img").style.backgroundImage = "";
     });
 
-    // кнопки назад: Submit видима, Next схована
     submitButton.classList.remove("hidden");
     nextButton.classList.add("hidden");
   } else {
@@ -223,24 +230,21 @@ nextButton.addEventListener("click", () => {
   }
 });
 
+// ----------------------------------------------------
+// Play again button logic - reset previous quiz state
+// ----------------------------------------------------
 playAgainButton.addEventListener("click", () => {
-  // Скидаємо стан
   score = 0;
   currentQuestionIndex = 0;
   currentQuiz = null;
 
-  // Ховаємо resultPage і показуємо startPage
   resultPage.classList.add("hidden");
   startPage.classList.remove("hidden");
 
-  // Скидаємо текст у score / maxScore
   scoreElement.textContent = "";
   maxScoreElement.textContent = "out of";
-
-  // Скидаємо прогрес бар
   progressBar.style.width = "0%";
 
-  // повністю чистимо кнопки відповідей
   answerButtons.forEach((btn) => {
     btn.classList.remove(
       "disabled",
@@ -254,7 +258,6 @@ playAgainButton.addEventListener("click", () => {
     option.style.color = "";
   });
 
-  // Submit видима, Next схована (на випадок якщо залишились старі класи)
   submitButton.classList.remove("hidden");
   nextButton.classList.add("hidden");
 });
