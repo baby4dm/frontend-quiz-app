@@ -29,6 +29,10 @@
   --moon-image-dark: url("./images/icon-moon-dark.svg");
   --icon-correct: url("./images/icon-correct.svg");
   --icon-incorrect: url("./images/icon-incorrect.svg");
+  --icon-html: url("./images/icon-html.svg");
+  --icon-css: url("./images/icon-css.svg");
+  --icon-js: url("./images/icon-js.svg");
+  --icon-access: url("./images/icon-accessibility.svg");
 }
 
 * {
@@ -82,7 +86,8 @@ body.dark-theme {
   background-color: var(--purple-100);
 }
 .topic-img-container,
-.question-option {
+.question-option,
+.header-topic-img-container {
   height: 40px;
   width: 40px;
   border-radius: 8px;
@@ -92,14 +97,20 @@ body.dark-theme {
   flex-shrink: 0;
   font-weight: 700;
 }
+.topic-img {
+  height: 28px;
+  width: 28px;
+}
+.header-topic-img-container {
+  background-size: 28px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: var(--icon-html);
+}
 .question-option {
   background-color: var(--grey-50);
   color: var(--grey-500);
   font-size: 18px;
-}
-.topic-img {
-  height: 28px;
-  width: 28px;
 }
 .topic-name {
   font-size: 18px;
@@ -302,6 +313,15 @@ body.dark-theme .buttons-container button {
   font-weight: 600;
   color: var(--grey-500);
 }
+body.dark-theme .result-container {
+  background-color: var(--blue-850);
+}
+body.dark-theme .score {
+  color: var(--white);
+}
+body.dark-theme .max-score {
+  color: var(--blue-300);
+}
 .hidden {
   display: none;
 }
@@ -418,7 +438,7 @@ body.dark-theme .buttons-container button {
   .main-container {
     padding-inline: 142px;
   }
-  .main-content { 
+  .main-content {
     display: grid;
     grid-template-columns: minmax(465px, 1fr) minmax(564px, 1fr);
     grid-template-rows: minmax(464px, 1fr) 92px;

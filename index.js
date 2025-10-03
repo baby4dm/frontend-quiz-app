@@ -17,6 +17,9 @@ const resultPage = document.querySelector(".result-page");
 const scoreElement = resultPage.querySelector(".score");
 const maxScoreElement = resultPage.querySelector(".max-score");
 const playAgainButton = resultPage.querySelector(".again-button");
+const topicContainers = document.querySelectorAll(".topic-title-container");
+const headerTopics = document.querySelectorAll(".header-topic-img-container");
+const topicNameElements = document.querySelectorAll(".topic-name");
 // ------------------------------
 // Змінні стану
 // ------------------------------
@@ -65,10 +68,34 @@ function initStartPage() {
         const topic = btn.textContent.trim();
         currentQuiz = quizzes.find((q) => q.title === topic);
         currentQuestionIndex = 0;
-
+        topicContainers[0].classList.remove("hidden");
+        topicNameElements.forEach((element) => {
+          element.textContent = topic;
+        });
         startPage.classList.add("hidden");
         quizPage.classList.remove("hidden");
-
+        console.log(topic);
+        if (topic === "HTML") {
+          headerTopics.forEach((topic) => {
+            topic.style.backgroundImage = "var(--icon-html)";
+            topic.classList.add("html");
+          });
+        } else if (topic === "CSS") {
+          headerTopics.forEach((topic) => {
+            topic.style.backgroundImage = "var(--icon-css)";
+            topic.classList.add("css");
+          });
+        } else if (topic === "JavaScript") {
+          headerTopics.forEach((topic) => {
+            topic.style.backgroundImage = "var(--icon-js)";
+            topic.classList.add("js");
+          });
+        } else {
+          headerTopics.forEach((topic) => {
+            topic.style.backgroundImage = "var(--icon-access)";
+            topic.classList.add("access");
+          });
+        }
         showQuestion();
       });
     });
@@ -231,4 +258,3 @@ playAgainButton.addEventListener("click", () => {
   submitButton.classList.remove("hidden");
   nextButton.classList.add("hidden");
 });
-
